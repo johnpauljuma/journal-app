@@ -1,0 +1,141 @@
+.custom-calendar {
+    max-width: 80%; /* Adjust this value as needed */
+    margin: auto; /* Center the calendar */
+  }
+
+  /* Custom styles for the calendar */
+
+.ant-picker-calendar .ant-picker-calendar-date {
+    height: 40px; /* Adjust the height of the date cells */
+    line-height: 40px; /* Center align text vertically */
+  }
+  
+  .ant-picker-calendar .ant-picker-calendar-cell {
+    height: 40px; /* Ensure the cell height matches the date height */
+  }
+  
+  .ant-picker-calendar .ant-picker-calendar-date-content {
+    height: 100%; /* Ensure the date content fills the cell height */
+    display: flex;
+    align-items: center; /* Center align the content vertically */
+    justify-content: center; /* Center align the content horizontally */
+  }
+  
+  
+  .ant-picker-calendar {
+    font-size: 15px; /* Reduce the font size */
+  }
+  
+  .ant-picker-calendar .ant-picker-panel {
+    padding: 5px; /* Adjust padding */
+  }
+  
+  .ant-picker-calendar .ant-picker-calendar-date {
+    height: 10px; /* Adjust the height of calendar cells */
+    line-height: 10px; /* Center align text vertically */
+  }
+  
+  .ant-picker-calendar .ant-picker-calendar-header {
+    padding: 5px; /* Adjust padding for the header */
+  }
+  
+  .ant-picker-calendar .ant-picker-calendar-month-panel-year-select {
+    font-size: 12px; /* Reduce font size of month/year select */
+  }
+  
+  .ant-picker-calendar .ant-picker-calendar-month-panel-month {
+    padding: 5px; /* Adjust padding for month cells */
+  }
+  
+  .ant-picker-calendar .ant-picker-calendar-date-content {
+    padding: 5px; /* Adjust padding for date content */
+  }
+  
+  .notes-month section {
+    font-size: 12px; /* Adjust font size in month notes */
+  }
+  
+  .events li {
+    font-size: 12px; /* Adjust font size for events */
+  }
+  
+  /* CustomTimeline.css */
+.custom-timeline {
+    background-color: rgb(245, 236, 236);
+    padding: 20px;
+    padding-top: 20px;
+    padding-right: 100px;
+    border-radius: 8px;
+    color: #111;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    height: 100vh; 
+    width: 100%;
+    
+  }
+  
+  .important-heading {
+    color: #ff4d4f;
+    font-size: 24px;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .timeline-content {
+    background-color: #2b2c2b;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    margin: auto;
+    margin-left: 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .timeline-content h3 {
+    color: #ff4d4f;
+    font-size: 18px;
+    margin: 0;
+  }
+  
+  .timeline-content p {
+    color: #ddd;
+    margin: 5px 0;
+  }
+  
+  .ant-btn-primary {
+    background-color: #595959;
+    border-color: #595959;
+    color: #fff;
+  }
+  
+  .ant-btn-primary:hover,
+  .ant-btn-primary:focus {
+    background-color: #737373;
+    border-color: #737373;
+  }
+  
+  .ant-timeline-item-label {
+    color: #aaa;
+  }
+  
+  .ant-timeline-item-head {
+    background-color: #ff4d4f;
+    border-color: #ff4d4f;
+  }
+  
+  .ant-timeline-item {
+    padding-bottom: 20px;
+  }
+  
+  .ant-timeline {
+    padding-left: 0;
+  }
+  
+  .ant-timeline-item-content {
+    padding-left: 0;
+  }
+  
