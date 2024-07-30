@@ -1,25 +1,81 @@
 "use client";
 
-import React from 'react';
-import { Form, Input, Button, Card, DatePicker, Upload, Row, Col } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import { Form, Input, Button, Card, DatePicker, Row, Col, message } from 'antd';
+import moment from 'moment';
 
 const DailyReflections = () => {
-  const onFinish = (values) => {
-    console.log('Success:', values);
+  const [form] = Form.useForm();
+  const [imagePath, setImagePath] = useState('');
+
+  const onFinish = async (values) => {
+    const formData = {
+      title: values.title,
+      date: values.date ? values.date.format('YYYY-MM-DD') : '',
+      description: values.description,
+      imagePath,
+    };
+
+    const url = '/api/dailyReflections';
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        message.success('Reflection submitted successfully!');
+        form.resetFields();
+        setImagePath('');
+      } else {
+        message.error('Failed to submit reflection');
+      }
+    } catch (error) {
+      message.error('An error occurred while submitting the reflection');
+      console.error(error);
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
 
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setImagePath(data.filePath); // Assuming the API returns the file path
+        message.success('Image uploaded successfully!');
+      } else {
+        message.error('Failed to upload image');
+      }
+    } catch (error) {
+      message.error('An error occurred while uploading the image');
+      console.error(error);
+    }
+  };
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: 'fitContent' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: 'fitContent', padding: '20px' }}>
       <Card
         title="New Diary"
         style={{ width: '100%', maxWidth: '600px', marginBottom: '10px' }}
       >
         <Form
+          form={form}
           name="daily_reflections"
           layout="vertical"
           onFinish={onFinish}
@@ -57,25 +113,20 @@ const DailyReflections = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item
-                label="Visualize Your Reflection"
-                name="image"
-              >
-                <Upload>
-                  <Button icon={<UploadOutlined />}>Upload an Image</Button>
-                </Upload>
+              <Form.Item label="Visualize Your Reflection">
+                <input type="file" onChange={handleImageUpload} />
+                {imagePath && <p>Image uploaded: {imagePath}</p>}
               </Form.Item>
             </Col>
           </Row>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ display: 'block', float:'right' }}>
+            <Button type="primary" htmlType="submit" style={{ display: 'block', marginLeft: 'auto' }}>
               Submit
             </Button>
           </Form.Item>
         </Form>
       </Card>
-      
     </div>
   );
 };

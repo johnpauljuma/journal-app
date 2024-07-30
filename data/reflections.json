@@ -1,0 +1,28 @@
+[
+  {
+    "id": "6dc358b2-0548-411f-93ea-1adee7955aa3",
+    "imagePath": null
+  },
+  {
+    "id": "841094f8-1ab7-49e6-91f2-de4f3e3f9cfe",
+    "imagePath": null
+  },
+  {
+    "id": "e49147bb-18e6-4b89-85e7-8a0334c6582a",
+    "imagePath": null
+  },
+  {
+    "id": "475a4cb4-04d7-429d-ac0e-89ee849ead31",
+    "title": "My day",
+    "date": "2024-07-30",
+    "description": "asdfghjkl;",
+    "imagePath": "/uploads/WhatsApp Image 2024-07-19 at 20.26.50.jpeg"
+  },
+  {
+    "id": "22e4a858-3547-4ad2-8103-f90585f60796",
+    "title": "my day 2",
+    "date": "2024-07-30",
+    "description": "dfghjkl;",
+    "imagePath": "/uploads/image1.jpeg"
+  }
+]
