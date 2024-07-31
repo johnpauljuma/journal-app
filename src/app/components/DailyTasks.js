@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { CloseOutlined } from '@ant-design/icons';
 import { Button, Card, Form, Input, message, Modal } from 'antd';
 import moment from 'moment';
+import { v4 as uuidv4 } from 'uuid';
 
 const TaskForm = ({
   task,
@@ -18,34 +19,34 @@ const TaskForm = ({
 }) => (
   <Card
     size="small"
-    key={index}
+    key={task.id}
     title={
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <span>{task.date}</span>
         <span>{`Item ${task.originalIndex + 1}`}</span>
-        <CloseOutlined onClick={() => handleRemove(index)} style={{ marginLeft: '10px' }} />
+        <CloseOutlined onClick={() => handleRemove(task.id)} style={{ marginLeft: '10px' }} />
       </div>
     }
   >
     <Form.Item
       label="Task"
-      name={['task', index]}
+      name={`task_${task.id}`}
       initialValue={task.task}
       rules={[{ required: true, message: 'Please input the task!' }]}
     >
-      <Input disabled={editIndex !== index && task.saved} />
+      <Input disabled={editIndex !== task.id && task.saved} />
     </Form.Item>
     <Form.Item
       label="Description"
-      name={['description', index]}
+      name={`description_${task.id}`}
       initialValue={task.description}
     >
-      <Input.TextArea rows={2} disabled={editIndex !== index && task.saved} />
+      <Input.TextArea rows={2} disabled={editIndex !== task.id && task.saved} />
     </Form.Item>
     <Form.Item>
-      {editIndex === index ? (
+      {editIndex === task.id ? (
         <div>
-          <Button type="primary" onClick={() => handleSave(index)} style={{ float: 'right' }}>
+          <Button type="primary" onClick={() => handleSave(task.id)} style={{ float: 'right' }}>
             Save
           </Button>
           <Button type="default" onClick={onCancelEdit} style={{ marginRight: 8 }}>
@@ -55,15 +56,15 @@ const TaskForm = ({
       ) : (
         <div>
           {!task.saved ? (
-            <Button type="primary" onClick={() => handleSave(index)} style={{ float: 'right' }}>
+            <Button type="primary" onClick={() => handleSave(task.id)} style={{ float: 'right' }}>
               Save
             </Button>
           ) : (
             <div>
-              <Button type="default" onClick={() => handleDone(index)} style={{ marginRight: 8 }}>
+              <Button type="default" onClick={() => handleDone(task.id)} style={{ marginRight: 8 }}>
                 Done
               </Button>
-              <Button type="default" onClick={() => handleEdit(index)} style={{ marginRight: 8 }}>
+              <Button type="default" onClick={() => handleEdit(task.id)} style={{ marginRight: 8 }}>
                 Edit
               </Button>
             </div>
@@ -94,17 +95,27 @@ const DailyTasks = () => {
     const date = moment().format('YYYY-MM-DD');
     setTasks([
       ...tasks,
-      { task: '', description: '', date, done: false, saved: false, originalIndex: tasks.length },
+      {
+        id: uuidv4(),
+        task: '',
+        description: '',
+        date,
+        done: false,
+        saved: false,
+        originalIndex: tasks.length,
+      },
     ]);
-    form.setFieldsValue({ task: tasks.length, description: tasks.length });
   };
 
-  const handleSave = (index) => {
-    form.validateFields([['task', index], ['description', index]])
+  const handleSave = (id) => {
+    form.validateFields([`task_${id}`, `description_${id}`])
       .then((values) => {
         setTasks((prevTasks) => {
-          const newTasks = [...prevTasks];
-          newTasks[index] = { ...newTasks[index], task: values.task[index], description: values.description[index], saved: true };
+          const newTasks = prevTasks.map((task) =>
+            task.id === id
+              ? { ...task, task: values[`task_${id}`], description: values[`description_${id}`], saved: true }
+              : task
+          );
           saveTasksToLocalStorage(newTasks);
           return newTasks;
         });
@@ -116,22 +127,23 @@ const DailyTasks = () => {
       });
   };
 
-  const handleEdit = (index) => {
-    setEditIndex(index);
+  const handleEdit = (id) => {
+    setEditIndex(id);
+    const task = tasks.find((task) => task.id === id);
     form.setFieldsValue({
-      task: { [index]: tasks[index].task },
-      description: { [index]: tasks[index].description },
+      [`task_${id}`]: task.task,
+      [`description_${id}`]: task.description,
     });
   };
 
-  const handleDone = async (index) => {
+  const handleDone = async (id) => {
     Modal.confirm({
       title: 'Save task?',
       content: 'Would you like to save this task for future reference?',
       okText: 'Yes',
       cancelText: 'No',
       onOk: async () => {
-        const task = tasks[index];
+        const task = tasks.find((task) => task.id === id);
         try {
           const response = await fetch('/api/dailyTasks', {
             method: 'POST',
@@ -142,7 +154,7 @@ const DailyTasks = () => {
           });
           if (response.ok) {
             message.success('Task saved to server!');
-            handleRemove(index);
+            handleRemove(id);
           } else {
             message.error('Failed to save task to server');
           }
@@ -151,13 +163,13 @@ const DailyTasks = () => {
           console.error(error);
         }
       },
-      onCancel: () => handleRemove(index),
+      onCancel: () => handleRemove(id),
     });
   };
 
-  const handleRemove = (index) => {
+  const handleRemove = (id) => {
     setTasks((prevTasks) => {
-      const newTasks = prevTasks.filter((_, i) => i !== index).map((task, i) => ({ ...task, originalIndex: i }));
+      const newTasks = prevTasks.filter((task) => task.id !== id);
       saveTasksToLocalStorage(newTasks);
       return newTasks;
     });
@@ -183,7 +195,7 @@ const DailyTasks = () => {
           >
             {tasks.map((task, index) => (
               <TaskForm
-                key={index}
+                key={task.id}
                 task={task}
                 index={index}
                 editIndex={editIndex}

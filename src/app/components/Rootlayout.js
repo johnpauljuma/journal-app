@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import {
-  DatabaseOutlined, 
+  DatabaseOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UploadOutlined,
@@ -22,21 +22,24 @@ import DailyReflections from './DailyReflections';
 import DailyTasks from './DailyTasks';
 import Goals from './Goals';
 import Journal from './Journal';
-import './styles.css'; // Import custom styles
+import Diaries from './Diaries';
+import './styles.css';
+import DisplayGoals from './DisplayGoals';
+import Tasks from './Tasks';
 
 const { Header, Sider, Content, Footer } = Layout;
 
 const RootLayout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [selectedKey, setSelectedKey] = useState('');
-  const [isJournalView, setIsJournalView] = useState(false); // New state to toggle Journal view
+  const [isJournalView, setIsJournalView] = useState(false);
 
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
   const handleMenuItemClick = (key) => {
-    if (key === '2' || key === 'journal-landing' || key === 'daily-reflection' || key === 'goals' || key === 'daily-tasks') {
+    if (key === '2' || key === 'journal-landing' || key === 'daily-reflection' || key === 'goals' || key === 'daily-tasks' || key === 'diaries' || key === 'display-goals' || key === 'tasks') {
       setIsJournalView(true);
     } else {
       setIsJournalView(false);
@@ -49,21 +52,28 @@ const RootLayout = ({ children }) => {
       case '1':
         return children;
       case '2':
-        return renderJournalContent(); // Render Journal content
+        return renderJournalContent();
       case '3':
         return <MyTimeline />;
       case '4':
         return <MyCalendar />;
       case 'journal-landing':
-        return <Journal />
+        return <Journal />;
       case 'daily-reflection':
         return <DailyReflections />;
       case 'goals':
         return <Goals />;
       case 'daily-tasks':
-        return <DailyTasks />
+        return <DailyTasks />;
+      case 'diaries':
+        return <Diaries />;
+      case 'display-goals':
+        return <DisplayGoals />;
+      case 'tasks':
+        return <Tasks />;
+        
       default:
-        return children; // Fallback to children
+        return children;
     }
   };
 
@@ -113,9 +123,9 @@ const RootLayout = ({ children }) => {
         </div>
         {isJournalView && (
           <div style={{ position: 'absolute', right: '20px' }}>
-            <Button className='custom-menu-item' type="primary" icon={<EyeOutlined />}>Diaries</Button>
-            <Button className='custom-menu-item' type="primary" icon={<EyeOutlined />} style={{ marginLeft: '10px' }}>Goals</Button>
-            <Button className='custom-menu-item' type="primary" icon={<EyeOutlined />} style={{ marginLeft: '10px' }}>Tasks</Button>
+            <Button className='custom-menu-item' type="primary" icon={<EyeOutlined />} onClick={() => handleMenuItemClick('diaries')}>Diaries</Button>
+            <Button className='custom-menu-item' type="primary" icon={<EyeOutlined />} style={{ marginLeft: '10px' }} onClick={() => handleMenuItemClick('display-goals')}>Goals</Button>
+            <Button className='custom-menu-item' type="primary" icon={<EyeOutlined />} style={{ marginLeft: '10px' }} onClick={() => handleMenuItemClick('tasks')}>Tasks</Button>
             <Button className='custom-menu-item' type="primary" icon={<PlusOutlined />} style={{ marginLeft: '10px' }}>Add</Button>
           </div>
         )}
@@ -141,62 +151,68 @@ const RootLayout = ({ children }) => {
             items={isJournalView ? [
               {
                 key: 'home',
-                icon: <HomeOutlined style={{fontSize:'14pt'}}/>,
+                icon: <HomeOutlined style={{ fontSize: '14pt' }} />,
                 label: 'Home',
                 onClick: () => {
                   setIsJournalView(false);
                   setSelectedKey('1');
                 },
-                className: 'custom-menu-item' // Apply custom CSS class
+                className: 'custom-menu-item'
               },
               {
                 key: 'journal-landing',
-                icon: <SnippetsOutlined style={{fontSize:'14pt'}}/>,
+                icon: <SnippetsOutlined style={{ fontSize: '14pt' }} />,
                 label: 'Journals',
-                className: 'custom-menu-item' // Apply custom CSS class
+                className: 'custom-menu-item'
               },
               {
                 key: 'daily-reflection',
-                icon: <DatabaseOutlined style={{fontSize:'14pt'}}/>,
+                icon: <DatabaseOutlined style={{ fontSize: '14pt' }} />,
                 label: 'Daily Reflection',
-                className: 'custom-menu-item' // Apply custom CSS class
+                className: 'custom-menu-item'
               },
               {
                 key: 'goals',
-                icon: <CarryOutOutlined style={{fontSize:'14pt'}}/>,
+                icon: <CarryOutOutlined style={{ fontSize: '14pt' }} />,
                 label: 'Goals',
-                className: 'custom-menu-item' // Apply custom CSS class
+                className: 'custom-menu-item'
               },
               {
                 key: 'daily-tasks',
-                icon: <DatabaseOutlined style={{fontSize:'14pt'}}/>,
+                icon: <DatabaseOutlined style={{ fontSize: '14pt' }} />,
                 label: 'Daily Tasks',
-                className: 'custom-menu-item' // Apply custom CSS class
+                className: 'custom-menu-item'
+              },
+              {
+                key: 'diaries',
+                icon: <SnippetsOutlined style={{ fontSize: '14pt' }} />,
+                label: 'Diaries',
+                className: 'custom-menu-item'
               }
             ] : [
               {
                 key: '1',
-                icon: <HomeOutlined style={{fontSize:'14pt'}}/>,
+                icon: <HomeOutlined style={{ fontSize: '14pt' }} />,
                 label: 'Home',
-                className: 'custom-menu-item' // Apply custom CSS class
+                className: 'custom-menu-item'
               },
               {
                 key: '2',
-                icon: <SnippetsOutlined style={{fontSize:'14pt'}}/>,
+                icon: <SnippetsOutlined style={{ fontSize: '14pt' }} />,
                 label: 'Journals',
-                className: 'custom-menu-item' // Apply custom CSS class
+                className: 'custom-menu-item'
               },
               {
                 key: '3',
-                icon: <FieldTimeOutlined style={{fontSize:'14pt'}}/>,
+                icon: <FieldTimeOutlined style={{ fontSize: '14pt' }} />,
                 label: 'Timeline',
-                className: 'custom-menu-item' // Apply custom CSS class
+                className: 'custom-menu-item'
               },
               {
                 key: '4',
-                icon: <UserOutlined style={{fontSize:'14pt'}}/>,
+                icon: <UserOutlined style={{ fontSize: '14pt' }} />,
                 label: 'Calendar',
-                className: 'custom-menu-item' // Apply custom CSS class
+                className: 'custom-menu-item'
               },
             ]}
             onClick={({ key }) => handleMenuItemClick(key)}
@@ -211,7 +227,7 @@ const RootLayout = ({ children }) => {
               background: '#e18437',
               borderRadius: '10px',
               overflowY: 'auto',
-              height: 'calc(100vh - 64px - 70px)' // Adjust height to account for header and footer
+              height: 'calc(100vh - 64px - 70px)'
             }}
           >
             {renderContent()}
