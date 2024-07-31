@@ -1,28 +1,10 @@
 [
   {
-    "0": {
-      "task": "1",
-      "description": "sdfghjk"
-    },
-    "done": true
-  },
-  {
-    "task": "",
-    "description": "",
-    "done": true,
-    "saved": true
-  },
-  {
-    "task": "",
-    "description": "",
-    "done": false,
-    "saved": true
-  },
-  {
-    "task": "",
-    "description": "",
+    "task": "go morning run",
+    "description": "always good and better",
     "date": "2024-07-30",
     "done": false,
-    "saved": true
+    "saved": true,
+    "originalIndex": 0
   }
 ]

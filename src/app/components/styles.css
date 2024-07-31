@@ -1,3 +1,15 @@
+.custom-menu-item {
+  background-color: #c04b10 !important;
+  color: white !important;
+  font-size: 12pt !important;
+  
+}
+
+.custom-menu-item:hover {
+  background-color: #ff7852 !important;
+  color: white !important;
+}
+
 .custom-calendar {
     max-width: 80%; /* Adjust this value as needed */
     margin: auto; /* Center the calendar */

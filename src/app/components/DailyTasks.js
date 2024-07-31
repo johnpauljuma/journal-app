@@ -5,21 +5,31 @@ import { CloseOutlined } from '@ant-design/icons';
 import { Button, Card, Form, Input, message, Modal } from 'antd';
 import moment from 'moment';
 
-const TaskForm = ({ task, index, editIndex, form, handleSave, handleEdit, handleDone, handleRemove, onCancelEdit }) => (
+const TaskForm = ({
+  task,
+  index,
+  editIndex,
+  form,
+  handleSave,
+  handleEdit,
+  handleDone,
+  handleRemove,
+  onCancelEdit,
+}) => (
   <Card
     size="small"
     key={index}
     title={
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <span>{moment().format('YYYY-MM-DD')}</span>
-        <span>{`Item ${index + 1}`}</span>
+        <span>{task.date}</span>
+        <span>{`Item ${task.originalIndex + 1}`}</span>
         <CloseOutlined onClick={() => handleRemove(index)} style={{ marginLeft: '10px' }} />
       </div>
     }
   >
     <Form.Item
       label="Task"
-      name={[index, 'task']}
+      name={['task', index]}
       initialValue={task.task}
       rules={[{ required: true, message: 'Please input the task!' }]}
     >
@@ -27,7 +37,7 @@ const TaskForm = ({ task, index, editIndex, form, handleSave, handleEdit, handle
     </Form.Item>
     <Form.Item
       label="Description"
-      name={[index, 'description']}
+      name={['description', index]}
       initialValue={task.description}
     >
       <Input.TextArea rows={2} disabled={editIndex !== index && task.saved} />
@@ -35,26 +45,30 @@ const TaskForm = ({ task, index, editIndex, form, handleSave, handleEdit, handle
     <Form.Item>
       {editIndex === index ? (
         <div>
-          <Button type="primary" htmlType="submit" style={{ float: 'right' }}>
+          <Button type="primary" onClick={() => handleSave(index)} style={{ float: 'right' }}>
             Save
           </Button>
           <Button type="default" onClick={onCancelEdit} style={{ marginRight: 8 }}>
             Cancel
           </Button>
         </div>
-      ) : task.saved ? (
-        <div>
-          <Button type="default" onClick={() => handleDone(index)} style={{ marginRight: 8 }}>
-            Done
-          </Button>
-          <Button type="default" onClick={() => handleEdit(index)}>
-            Edit
-          </Button>
-        </div>
       ) : (
-        <Button type="primary" onClick={() => handleSave(index)}>
-          Save
-        </Button>
+        <div>
+          {!task.saved ? (
+            <Button type="primary" onClick={() => handleSave(index)} style={{ float: 'right' }}>
+              Save
+            </Button>
+          ) : (
+            <div>
+              <Button type="default" onClick={() => handleDone(index)} style={{ marginRight: 8 }}>
+                Done
+              </Button>
+              <Button type="default" onClick={() => handleEdit(index)} style={{ marginRight: 8 }}>
+                Edit
+              </Button>
+            </div>
+          )}
+        </div>
       )}
     </Form.Item>
   </Card>
@@ -77,19 +91,25 @@ const DailyTasks = () => {
   };
 
   const handleAddTask = () => {
-    setTasks([...tasks, { task: '', description: '', done: false, saved: false }]);
+    const date = moment().format('YYYY-MM-DD');
+    setTasks([
+      ...tasks,
+      { task: '', description: '', date, done: false, saved: false, originalIndex: tasks.length },
+    ]);
+    form.setFieldsValue({ task: tasks.length, description: tasks.length });
   };
 
   const handleSave = (index) => {
-    form.validateFields([index, 'task', index, 'description'])
-      .then(() => {
+    form.validateFields([['task', index], ['description', index]])
+      .then((values) => {
         setTasks((prevTasks) => {
           const newTasks = [...prevTasks];
-          newTasks[index].saved = true;
+          newTasks[index] = { ...newTasks[index], task: values.task[index], description: values.description[index], saved: true };
           saveTasksToLocalStorage(newTasks);
           return newTasks;
         });
         message.success('Task saved locally!');
+        setEditIndex(null);
       })
       .catch(() => {
         message.error('Please fill in the required fields before saving.');
@@ -98,7 +118,10 @@ const DailyTasks = () => {
 
   const handleEdit = (index) => {
     setEditIndex(index);
-    form.setFieldsValue(tasks[index]);
+    form.setFieldsValue({
+      task: { [index]: tasks[index].task },
+      description: { [index]: tasks[index].description },
+    });
   };
 
   const handleDone = async (index) => {
@@ -134,22 +157,11 @@ const DailyTasks = () => {
 
   const handleRemove = (index) => {
     setTasks((prevTasks) => {
-      const newTasks = prevTasks.filter((_, i) => i !== index);
+      const newTasks = prevTasks.filter((_, i) => i !== index).map((task, i) => ({ ...task, originalIndex: i }));
       saveTasksToLocalStorage(newTasks);
       return newTasks;
     });
     message.info('Task removed');
-  };
-
-  const onFinish = (values) => {
-    setTasks((prevTasks) => {
-      const newTasks = [...prevTasks];
-      newTasks[editIndex] = { ...values, done: false, saved: true };
-      saveTasksToLocalStorage(newTasks);
-      return newTasks;
-    });
-    setEditIndex(null);
-    message.success('Task updated!');
   };
 
   const onCancelEdit = () => {
@@ -168,7 +180,6 @@ const DailyTasks = () => {
             name="daily_tasks"
             style={{ maxWidth: 900, margin: 0, boxShadow: 5 }}
             autoComplete="off"
-            onFinish={onFinish}
           >
             {tasks.map((task, index) => (
               <TaskForm

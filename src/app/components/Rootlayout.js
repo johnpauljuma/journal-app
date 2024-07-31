@@ -2,28 +2,33 @@
 
 import React, { useState, useEffect } from 'react';
 import {
-  DatabaseOutlined,
+  DatabaseOutlined, 
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
   PlusOutlined,
-  EyeOutlined
+  EyeOutlined,
+  HomeOutlined,
+  SnippetsOutlined,
+  FieldTimeOutlined,
+  CarryOutOutlined,
 } from '@ant-design/icons';
-import { Button, Layout, Menu, theme, Card, Row, Col } from 'antd';
-import MyCalendar from './MyCalender'; 
+import { Button, Layout, Menu, theme } from 'antd';
+import MyCalendar from './MyCalender';
 import MyTimeline from './MyTimeline';
 import DailyReflections from './DailyReflections';
 import DailyTasks from './DailyTasks';
 import Goals from './Goals';
 import Journal from './Journal';
+import './styles.css'; // Import custom styles
 
 const { Header, Sider, Content, Footer } = Layout;
 
 const RootLayout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
-  const [selectedKey, setSelectedKey] = useState(''); 
+  const [selectedKey, setSelectedKey] = useState('');
   const [isJournalView, setIsJournalView] = useState(false); // New state to toggle Journal view
 
   const {
@@ -63,7 +68,7 @@ const RootLayout = ({ children }) => {
   };
 
   const renderJournalContent = () => (
-    <Journal/>
+    <Journal />
   );
 
   useEffect(() => {
@@ -76,7 +81,7 @@ const RootLayout = ({ children }) => {
         style={{
           paddingLeft: "20px",
           paddingBottom: "10px",
-          background: "#DE3163",
+          background: "#fff",
           textAlign: 'left',
           color: '#fff',
           display: "flex",
@@ -97,29 +102,31 @@ const RootLayout = ({ children }) => {
             marginLeft: "10em"
           }}
         />
-        <div style={{width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <h1 
-          style={{
-            margin: "0",
-            alignSelf: 'center',
-          }}>
+        <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <h1
+            style={{
+              margin: "0",
+              alignSelf: 'center',
+            }}>
             My Journal
           </h1>
         </div>
         {isJournalView && (
           <div style={{ position: 'absolute', right: '20px' }}>
-            <Button type="primary" icon={<EyeOutlined />}>Diaries</Button>
-            <Button type="primary" icon={<EyeOutlined />} style={{ marginLeft: '10px' }}>Goals</Button>
-            <Button type="primary" icon={<EyeOutlined />} style={{ marginLeft: '10px' }}>Tasks</Button>
-            <Button type="primary" icon={<PlusOutlined />} style={{ marginLeft: '10px' }}>Add</Button>
+            <Button className='custom-menu-item' type="primary" icon={<EyeOutlined />}>Diaries</Button>
+            <Button className='custom-menu-item' type="primary" icon={<EyeOutlined />} style={{ marginLeft: '10px' }}>Goals</Button>
+            <Button className='custom-menu-item' type="primary" icon={<EyeOutlined />} style={{ marginLeft: '10px' }}>Tasks</Button>
+            <Button className='custom-menu-item' type="primary" icon={<PlusOutlined />} style={{ marginLeft: '10px' }}>Add</Button>
           </div>
         )}
       </Header>
-      <Layout style={{ marginTop: '64px' }}>
-        <Sider trigger={null} collapsible collapsed={collapsed} 
+      <Layout style={{ marginTop: '64px', color: 'white' }}>
+        <Sider trigger={null} collapsible collapsed={collapsed}
           style={{
-            background: "#000080",
-            color: "white",
+            background: "#c04b10",
+            color: "#fff",
+            fontSize: '50pt',
+            textEmphasis: 'bold',
             height: '100vh',
             position: 'fixed',
             left: 0,
@@ -128,59 +135,68 @@ const RootLayout = ({ children }) => {
             overflow: 'auto'
           }}>
           <Menu
-            theme="dark"
+            theme="none"
             mode="inline"
             defaultSelectedKeys={['']}
             items={isJournalView ? [
               {
                 key: 'home',
-                icon: <DatabaseOutlined />,
+                icon: <HomeOutlined style={{fontSize:'14pt'}}/>,
                 label: 'Home',
                 onClick: () => {
                   setIsJournalView(false);
                   setSelectedKey('1');
-                }
+                },
+                className: 'custom-menu-item' // Apply custom CSS class
               },
               {
                 key: 'journal-landing',
-                icon: <DatabaseOutlined />,
+                icon: <SnippetsOutlined style={{fontSize:'14pt'}}/>,
                 label: 'Journals',
+                className: 'custom-menu-item' // Apply custom CSS class
               },
               {
                 key: 'daily-reflection',
-                icon: <DatabaseOutlined />,
+                icon: <DatabaseOutlined style={{fontSize:'14pt'}}/>,
                 label: 'Daily Reflection',
+                className: 'custom-menu-item' // Apply custom CSS class
               },
               {
                 key: 'goals',
-                icon: <DatabaseOutlined />,
+                icon: <CarryOutOutlined style={{fontSize:'14pt'}}/>,
                 label: 'Goals',
+                className: 'custom-menu-item' // Apply custom CSS class
               },
               {
                 key: 'daily-tasks',
-                icon: <DatabaseOutlined />,
+                icon: <DatabaseOutlined style={{fontSize:'14pt'}}/>,
                 label: 'Daily Tasks',
+                className: 'custom-menu-item' // Apply custom CSS class
               }
             ] : [
               {
                 key: '1',
-                icon: <DatabaseOutlined />,
+                icon: <HomeOutlined style={{fontSize:'14pt'}}/>,
                 label: 'Home',
+                className: 'custom-menu-item' // Apply custom CSS class
               },
               {
                 key: '2',
-                icon: <VideoCameraOutlined />,
+                icon: <SnippetsOutlined style={{fontSize:'14pt'}}/>,
                 label: 'Journals',
+                className: 'custom-menu-item' // Apply custom CSS class
               },
               {
                 key: '3',
-                icon: <UploadOutlined />,
+                icon: <FieldTimeOutlined style={{fontSize:'14pt'}}/>,
                 label: 'Timeline',
+                className: 'custom-menu-item' // Apply custom CSS class
               },
               {
                 key: '4',
-                icon: <UserOutlined />,
+                icon: <UserOutlined style={{fontSize:'14pt'}}/>,
                 label: 'Calendar',
+                className: 'custom-menu-item' // Apply custom CSS class
               },
             ]}
             onClick={({ key }) => handleMenuItemClick(key)}
@@ -192,7 +208,8 @@ const RootLayout = ({ children }) => {
               margin: '24px 16px',
               padding: 24,
               minHeight: 280,
-              background: colorBgContainer,
+              background: '#e18437',
+              borderRadius: '10px',
               overflowY: 'auto',
               height: 'calc(100vh - 64px - 70px)' // Adjust height to account for header and footer
             }}
@@ -203,7 +220,7 @@ const RootLayout = ({ children }) => {
             style={{
               textAlign: 'center',
               width: '100%',
-              background: "#E6E6FA",
+              background: "#fff",
               position: 'fixed',
               bottom: 0,
               left: 0,
