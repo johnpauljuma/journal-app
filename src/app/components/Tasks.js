@@ -14,8 +14,12 @@ const Tasks = () => {
   const fetchTasks = async () => {
     try {
       const response = await fetch('/api/dailyTasks');
+      if (!response.ok) {
+        throw new Error('Failed to fetch tasks');
+      }
       const data = await response.json();
-      setTasks(data);
+      const flattenedData = data.flat();
+      setTasks(flattenedData);
     } catch (error) {
       message.error('Error fetching tasks');
     }
@@ -23,7 +27,11 @@ const Tasks = () => {
 
   const handleMarkAsDone = async (task) => {
     const updatedTask = { ...task, done: true };
-    await updateTask(updatedTask);
+    try {
+      await updateTask(updatedTask);
+    } catch (error) {
+      message.error('Error marking task as done');
+    }
   };
 
   const handleEdit = (task) => {
@@ -32,18 +40,25 @@ const Tasks = () => {
   };
 
   const handleSave = async () => {
-    const updatedTask = { ...editingGoal, ...form.getFieldsValue() };
-    await updateTask(updatedTask);
-    setEditingTask(null);
+    try {
+      const updatedTask = { ...editingTask, ...form.getFieldsValue() };
+      await updateTask(updatedTask);
+      setEditingTask(null);
+    } catch (error) {
+      message.error('Error saving task');
+    }
   };
 
   const updateTask = async (task) => {
     try {
-      await fetch('/api/dailyTasks', {
+      const response = await fetch('/api/dailyTasks', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(task),
       });
+      if (!response.ok) {
+        throw new Error('Failed to update task');
+      }
       fetchTasks();
       message.success('Task updated successfully');
     } catch (error) {
@@ -53,11 +68,14 @@ const Tasks = () => {
 
   const handleDelete = async (id) => {
     try {
-      await fetch('/api/dailyTasks', {
+      const response = await fetch('/api/dailyTasks', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id }),
       });
+      if (!response.ok) {
+        throw new Error('Failed to delete task');
+      }
       fetchTasks();
       message.success('Task deleted successfully');
     } catch (error) {
@@ -69,13 +87,13 @@ const Tasks = () => {
     <div style={{ padding: '24px' }}>
       <h2>Tasks</h2>
       {tasks.map(task => (
-        <Card key={task.id} title={task.title} style={{ marginBottom: '16px' }}>
+        <Card key={task.id} title={task.task || 'No Title'} style={{ marginBottom: '16px' }}>
           {editingTask && editingTask.id === task.id ? (
             <Form form={form} layout="vertical">
-              <Form.Item name="title" label="Task">
+              <Form.Item name="task" label="Task">
                 <Input />
               </Form.Item>
-              <Form.Item name="targetDate" label="Date:">
+              <Form.Item name="date" label="Date">
                 <Input />
               </Form.Item>
               <Form.Item name="description" label="Description">
@@ -88,8 +106,8 @@ const Tasks = () => {
             </Form>
           ) : (
             <>
-              <p style={{ textAlign: 'right' }}><strong>Date:</strong> {task.targetDate}</p>
-              <p>{task.description}</p>
+              <p style={{ textAlign: 'right' }}><strong>Date:</strong> {task.date || 'No Date'}</p>
+              <p>{task.description || 'No Description'}</p>
               <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {task.done ? (
                   <Button type="primary" icon={<CheckOutlined />} style={{ marginRight: '8px' }}>Done</Button>

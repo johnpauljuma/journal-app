@@ -1,35 +1,29 @@
 [
-  [
-    {
-      "id": "a21bf9e7-f87d-40bd-a3ff-2f6cd2829f1c",
-      "task": "task 1",
-      "description": "gfsdgdjknvkvkjdkfjdkjkljgkfgjdfl",
-      "date": "2024-08-01",
-      "done": false,
-      "saved": true,
-      "originalIndex": 0
-    }
-  ],
-  [
-    {
-      "id": "2ad3adaa-b2d2-4f2a-a724-973a7b4a9e32",
-      "task": "task 2",
-      "description": "dkdjcdkcdc",
-      "date": "2024-08-01",
-      "done": false,
-      "saved": true,
-      "originalIndex": 1
-    }
-  ],
-  [
-    {
-      "id": "4ab6a081-0c72-460b-bff9-e681e28bc297",
-      "task": "trial for deletion",
-      "description": "to be deleted ",
-      "date": "2024-08-01",
-      "done": false,
-      "saved": true,
-      "originalIndex": 2
-    }
-  ]
+  {
+    "id": "7c1fcdf6-32a8-4392-9244-c2bfcfe7eb29",
+    "task": "3 and 3",
+    "description": "sdcvghnmkloiugbhyg",
+    "date": "2024-08-01",
+    "done": true,
+    "saved": true,
+    "originalIndex": 2
+  },
+  {
+    "id": "f002fd9e-fb99-489b-9ece-417bd2e4e96a",
+    "task": "2",
+    "description": "sdfghjkl",
+    "date": "2024-08-01",
+    "done": true,
+    "saved": true,
+    "originalIndex": 1
+  },
+  {
+    "id": "3b41b5ff-b563-4d4c-badf-a25685cb617a",
+    "task": "1",
+    "description": "asdfghj",
+    "date": "2024-08-01",
+    "done": true,
+    "saved": true,
+    "originalIndex": 0
+  }
 ]

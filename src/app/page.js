@@ -1,13 +1,15 @@
 "use client";
 
 import React from 'react';
-import { Row, Col, Card, Carousel } from 'antd';
+import { Row, Col, Card, Carousel, imgStyle} from 'antd';
+import home1 from './assets/home1.png';
+import home2 from './assets/home2.png';
 
 export default function Home() {
   const contentStyle = {
-    height: '160px',
+    height: '250px',
     color: '#fff',
-    lineHeight: '160px',
+    lineHeight: '250px',
     textAlign: 'center',
     background: 'orangered',
   };
@@ -51,16 +53,16 @@ export default function Home() {
       <div style={{marginTop: "30px"}}>
       <Carousel autoplay>
         <div>
-          <h3 style={contentStyle}>Slide 1</h3>
+            <img src={home1} alt="Home 1" style={imgStyle} />
         </div>
         <div>
-          <h3 style={contentStyle}>Slide 2</h3>
+            <img src={home2} alt="Home 2" style={imgStyle} />
         </div>
         <div>
-          <h3 style={contentStyle}>Slide 3</h3>
+            <h3 style={contentStyle}>Slide 3</h3>
         </div>
         <div>
-          <h3 style={contentStyle}>Slide 4</h3>
+            <h3 style={contentStyle}>Slide 4</h3>
         </div>
       </Carousel>
       </div>
