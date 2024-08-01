@@ -8,12 +8,12 @@ import {
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
-  PlusOutlined,
   EyeOutlined,
   HomeOutlined,
   SnippetsOutlined,
   FieldTimeOutlined,
   CarryOutOutlined,
+  CalendarOutlined
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
 import MyCalendar from './MyCalender';
@@ -126,7 +126,7 @@ const RootLayout = ({ children }) => {
             <Button className='custom-menu-item' type="primary" icon={<EyeOutlined />} onClick={() => handleMenuItemClick('diaries')}>Diaries</Button>
             <Button className='custom-menu-item' type="primary" icon={<EyeOutlined />} style={{ marginLeft: '10px' }} onClick={() => handleMenuItemClick('display-goals')}>Goals</Button>
             <Button className='custom-menu-item' type="primary" icon={<EyeOutlined />} style={{ marginLeft: '10px' }} onClick={() => handleMenuItemClick('tasks')}>Tasks</Button>
-            <Button className='custom-menu-item' type="primary" icon={<PlusOutlined />} style={{ marginLeft: '10px' }}>Add</Button>
+            
           </div>
         )}
       </Header>
@@ -168,27 +168,22 @@ const RootLayout = ({ children }) => {
               {
                 key: 'daily-reflection',
                 icon: <DatabaseOutlined style={{ fontSize: '14pt' }} />,
-                label: 'Daily Reflection',
+                label: 'New Diary',
                 className: 'custom-menu-item'
               },
               {
                 key: 'goals',
                 icon: <CarryOutOutlined style={{ fontSize: '14pt' }} />,
-                label: 'Goals',
+                label: 'New Goal',
                 className: 'custom-menu-item'
               },
               {
                 key: 'daily-tasks',
                 icon: <DatabaseOutlined style={{ fontSize: '14pt' }} />,
-                label: 'Daily Tasks',
+                label: 'New Task',
                 className: 'custom-menu-item'
               },
-              {
-                key: 'diaries',
-                icon: <SnippetsOutlined style={{ fontSize: '14pt' }} />,
-                label: 'Diaries',
-                className: 'custom-menu-item'
-              }
+              
             ] : [
               {
                 key: '1',
@@ -210,7 +205,7 @@ const RootLayout = ({ children }) => {
               },
               {
                 key: '4',
-                icon: <UserOutlined style={{ fontSize: '14pt' }} />,
+                icon: <CalendarOutlined style={{ fontSize: '14pt' }} />,
                 label: 'Calendar',
                 className: 'custom-menu-item'
               },
@@ -222,7 +217,7 @@ const RootLayout = ({ children }) => {
           <Content
             style={{
               margin: '24px 16px',
-              padding: 24,
+              padding: 0,
               minHeight: 280,
               background: '#e18437',
               borderRadius: '10px',

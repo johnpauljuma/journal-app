@@ -1,70 +1,61 @@
 "use client";
 
 import React from 'react';
-import { Row, Col, Card, Carousel, imgStyle} from 'antd';
-import home1 from './assets/home1.png';
-import home2 from './assets/home2.png';
 
 export default function Home() {
-  const contentStyle = {
-    height: '250px',
-    color: '#fff',
-    lineHeight: '250px',
-    textAlign: 'center',
-    background: 'orangered',
+  const styles = {
+    landingPage: {
+      backgroundImage: "url('/home6.png')",
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      height: '76vh',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: '#fff',
+      textAlign: 'center',
+      position: 'relative', // Ensure overlay is positioned correctly
+    },
+    overlay: {
+      background: 'rgba(0, 0, 0, 0.5)',
+      padding: '0px',
+      borderRadius: '10px',
+      position: 'absolute', // Ensure overlay covers the entire background
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+    },
+    content: {
+      position: 'relative', // Ensure content is above the overlay
+      zIndex: 1,
+    },
+    heading: {
+      fontSize: '3em',
+      marginBottom: '0.5em',
+    },
+    subheading: {
+      fontSize: '1.5em',
+      marginBottom: '1.5em',
+    },
+    ctaButton: {
+      padding: '10px 20px',
+      fontSize: '1em',
+      color: '#fff',
+      backgroundColor: '#007BFF',
+      border: 'none',
+      borderRadius: '5px',
+      cursor: 'pointer',
+    },
   };
 
-  
   return (
-    <div>
-      <h1>This is home page</h1>
-      <div>
-        <Row gutter={16}>
-          <Col span={8}>
-            <Card title="Card title" bordered={false} 
-              style={{ 
-                backgroundColor: '#f0f2f5',
-                marginTop: "10px"
-              }}>
-              Card content
-            </Card>
-          </Col>
-          <Col span={8}>
-            <Card title="Card title" bordered={false} 
-              style={{ 
-                backgroundColor: '#f0f2f5',
-                marginTop: "10px"
-              }}>
-              Card content
-            </Card>
-          </Col>
-          <Col span={8}>
-            <Card title="Card title" bordered={false} 
-              style={{ 
-                backgroundColor: '#f0f2f5',
-                marginTop: "10px"
-              }}>
-              Card content
-            </Card>
-          </Col>
-        </Row>
-      </div>
-     
-      <div style={{marginTop: "30px"}}>
-      <Carousel autoplay>
-        <div>
-            <img src={home1} alt="Home 1" style={imgStyle} />
-        </div>
-        <div>
-            <img src={home2} alt="Home 2" style={imgStyle} />
-        </div>
-        <div>
-            <h3 style={contentStyle}>Slide 3</h3>
-        </div>
-        <div>
-            <h3 style={contentStyle}>Slide 4</h3>
-        </div>
-      </Carousel>
+    <div style={styles.landingPage}>
+      <div style={styles.overlay}></div>
+      <div style={styles.content}>
+        <h1 style={styles.heading}>Welcome to Our Journal App</h1>
+        <p style={styles.subheading}>Start documenting your thoughts and memories today.</p>
+        <button style={styles.ctaButton}>Get Started</button>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@
   background-color: #c04b10 !important;
   color: white !important;
   font-size: 12pt !important;
+  font-weight: bold;
   
 }
 
@@ -9,6 +10,7 @@
   background-color: #ff7852 !important;
   color: white !important;
 }
+
 
 .custom-calendar {
     max-width: 80%; /* Adjust this value as needed */
