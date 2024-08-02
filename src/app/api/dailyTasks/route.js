@@ -18,7 +18,7 @@ export async function GET() {
 
       tasks = flattenTasksArray(tasks); // Flatten the array if necessary
 
-      console.log("Tasks fetched:", tasks);
+      //console.log("Tasks fetched:", tasks);
       return NextResponse.json(tasks, { status: 200 });
     } else {
       return NextResponse.json([], { status: 200 }); // Return an empty array if file doesn't exist

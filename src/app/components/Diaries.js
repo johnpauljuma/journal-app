@@ -75,6 +75,7 @@ const Diaries = () => {
         setDiaries(updatedDiaries);
         setEditingDiary(null);
         message.success('Diary updated successfully');
+        
       } else {
         throw new Error('Failed to update diary');
       }
@@ -98,10 +99,10 @@ const Diaries = () => {
       reader.readAsDataURL(file);
     }
   };
-
+  
   return (
-    <div style={{ padding: '24px' }}>
-      <h2>Diaries</h2>
+    <div style={{ padding: '24px', marginBottom:'60px' }}>
+      <h2 style={{margin:'0', color:'white', marginBottom:'10px'}}>My Diaries</h2>
       <List
         grid={{ gutter: 16, column: 1 }}
         dataSource={diaries}

@@ -13,11 +13,12 @@ import {
   SnippetsOutlined,
   FieldTimeOutlined,
   CarryOutOutlined,
-  CalendarOutlined
+  CalendarOutlined,
+  FileImageOutlined
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
 import MyCalendar from './MyCalender';
-import MyTimeline from './MyTimeline';
+import Gallery from './Gallery';
 import DailyReflections from './DailyReflections';
 import DailyTasks from './DailyTasks';
 import Goals from './Goals';
@@ -54,7 +55,7 @@ const RootLayout = ({ children }) => {
       case '2':
         return renderJournalContent();
       case '3':
-        return <MyTimeline />;
+        return <Gallery />;
       case '4':
         return <MyCalendar />;
       case 'journal-landing':
@@ -199,8 +200,8 @@ const RootLayout = ({ children }) => {
               },
               {
                 key: '3',
-                icon: <FieldTimeOutlined style={{ fontSize: '14pt' }} />,
-                label: 'Timeline',
+                icon: <FileImageOutlined style={{ fontSize: '14pt' }} />,
+                label: 'Gallery',
                 className: 'custom-menu-item'
               },
               {
@@ -216,13 +217,14 @@ const RootLayout = ({ children }) => {
         <Layout style={{ marginLeft: collapsed ? '80px' : '200px', transition: 'margin-left 0.2s' }}>
           <Content
             style={{
-              margin: '24px 16px',
+              margin: '0px 16px',
+              marginBottom:'20px',
               padding: 0,
               minHeight: 280,
               background: '#e18437',
               borderRadius: '10px',
               overflowY: 'auto',
-              height: 'calc(100vh - 64px - 70px)'
+              height: '70vh'
             }}
           >
             {renderContent()}
@@ -239,7 +241,7 @@ const RootLayout = ({ children }) => {
               zIndex: 1000
             }}
           >
-            Ant Design ©{new Date().getFullYear()}
+            Daily Diary ©{new Date().getFullYear()}
           </Footer>
         </Layout>
       </Layout>

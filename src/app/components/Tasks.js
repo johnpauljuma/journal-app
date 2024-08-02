@@ -84,7 +84,7 @@ const Tasks = () => {
   };
 
   return (
-    <div style={{ padding: '24px' }}>
+    <div style={{ padding: '24px', marginBottom:'60px' }}>
       <h2>Tasks</h2>
       {tasks.map(task => (
         <Card key={task.id} title={task.task || 'No Title'} style={{ marginBottom: '16px' }}>
@@ -110,12 +110,12 @@ const Tasks = () => {
               <p>{task.description || 'No Description'}</p>
               <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {task.done ? (
-                  <Button type="primary" icon={<CheckOutlined />} style={{ marginRight: '8px' }}>Done</Button>
+                  <Button type="primary" icon={<CheckOutlined />} style={{ marginRight: '8px', backgroundColor:'#e18437' }}>Done</Button>
                 ) : (
-                  <Button type="primary" icon={<CheckOutlined />} onClick={() => handleMarkAsDone(task)} style={{ marginRight: '8px' }}>Mark as Done</Button>
+                  <Button type="primary" icon={<CheckOutlined />} onClick={() => handleMarkAsDone(task)} style={{ marginRight: '8px', backgroundColor:'#e18437' }}>Mark as Done</Button>
                 )}
-                <Button type="primary" icon={<EditOutlined />} onClick={() => handleEdit(task)} style={{ marginRight: '8px' }}>Edit</Button>
-                <Button type="danger" icon={<DeleteOutlined />} onClick={() => handleDelete(task.id)}>Delete</Button>
+                <Button type="primary" icon={<EditOutlined />} onClick={() => handleEdit(task)} style={{ marginRight: '8px', backgroundColor:'#e18437' }}>Edit</Button>
+                <Button type="danger" icon={<DeleteOutlined />} onClick={() => handleDelete(task.id)} style={{border:'solid #e18437'}}>Delete</Button>
               </div>
             </>
           )}

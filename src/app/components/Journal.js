@@ -14,7 +14,6 @@ const Journal = () => {
     fetch('/api/dailyReflections')
       .then(response => response.json())
       .then(data => {
-        console.log('Daily Reflections:', data);
         setDailyReflectionsCount(data.length);
       })
       .catch(error => console.error('Error fetching daily reflections:', error));
@@ -23,8 +22,8 @@ const Journal = () => {
     fetch('/api/goals')
       .then(response => response.json())
       .then(data => {
-        setAchievedGoals(data.achievedGoals);
-        setNotAchievedGoals(data.notAchievedGoals);
+        setAchievedGoals(data.counts.achievedGoals);
+        setNotAchievedGoals(data.counts.notAchievedGoals);
       })
       .catch(error => console.error('Error fetching goals:', error));
 
@@ -32,7 +31,6 @@ const Journal = () => {
     fetch('/api/dailyTasks')
       .then(response => response.json())
       .then(data => {
-        console.log('Daily Tasks:', data);
         setDailyTasksCount(data.length);
       })
       .catch(error => console.error('Error fetching daily tasks:', error));
@@ -53,26 +51,24 @@ const Journal = () => {
     alignItems: 'center',
     height: '150px',
     padding: '10px',
-    
   };
 
   const goalsContentStyle = {
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%',
-    backgroundColor:'red'
   };
 
   const goalsInnerStyle = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    margin:'10px'
+    margin: '10px',
   };
 
   return (
     <div>
-      <div style={{ backgroundColor: "#007BFF", padding: "10px" }}>
+      <div style={{ backgroundColor: "", padding: "10px" }}>
         <h1 style={{ margin: 0, color: "#fff", textAlign: "center" }}>Journals Overview</h1>
       </div>
       <div style={{ padding: "20px" }}>

@@ -8,7 +8,7 @@ export default function Home() {
       backgroundImage: "url('/home6.png')",
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      height: '76vh',
+      height: '77vh',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -42,10 +42,10 @@ export default function Home() {
       padding: '10px 20px',
       fontSize: '1em',
       color: '#fff',
-      backgroundColor: '#007BFF',
+      backgroundColor: '#c04b10',
       border: 'none',
       borderRadius: '5px',
-      cursor: 'pointer',
+      
     },
   };
 
@@ -53,9 +53,9 @@ export default function Home() {
     <div style={styles.landingPage}>
       <div style={styles.overlay}></div>
       <div style={styles.content}>
-        <h1 style={styles.heading}>Welcome to Our Journal App</h1>
+        <h1 style={styles.heading}>Capture Your World</h1>
         <p style={styles.subheading}>Start documenting your thoughts and memories today.</p>
-        <button style={styles.ctaButton}>Get Started</button>
+        <button style={styles.ctaButton}><b>Get Started From the Side Menu</b></button>
       </div>
     </div>
   );

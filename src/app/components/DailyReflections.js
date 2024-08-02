@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Card, DatePicker, Row, Col, message } from 'antd';
 import moment from 'moment';
+import { UploadOutlined } from '@ant-design/icons';
 
 const DailyReflections = () => {
   const [form] = Form.useForm();
@@ -68,11 +69,16 @@ const DailyReflections = () => {
     }
   };
 
+  const disabledDate = (current) => {
+    return current && current > moment().startOf('day');
+  };
+
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: 'fitContent', padding: '20px' }}>
       <Card
         title="New Diary"
-        style={{ width: '100%', maxWidth: '600px', marginBottom: '10px' }}
+        style={{ width: '100%', maxWidth: '800px', marginBottom: '10px' }}
       >
         <Form
           form={form}
@@ -97,7 +103,7 @@ const DailyReflections = () => {
                 name="date"
                 rules={[{ required: true, message: 'Please select the date!' }]}
               >
-                <DatePicker style={{ width: '100%' }} />
+                <DatePicker disabledDate={disabledDate} style={{ width: '100%' }} />
               </Form.Item>
             </Col>
           </Row>
@@ -114,14 +120,23 @@ const DailyReflections = () => {
             </Col>
             <Col span={8}>
               <Form.Item label="Visualize Your Reflection">
-                <input type="file" onChange={handleImageUpload} />
+                <input
+                  type="file"
+                  id="fileInput"
+                  onChange={handleImageUpload}
+                  style={{ display: 'none' }}
+                />
+                <label htmlFor="fileInput" style={labelStyle}>
+                <UploadOutlined style={{ marginRight: '8px' }} />
+                  Upload Image
+                </label>
                 {imagePath && <p>Image uploaded: {imagePath}</p>}
               </Form.Item>
             </Col>
           </Row>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ display: 'block', marginLeft: 'auto' }}>
+            <Button type="primary" htmlType="submit" style={{ display: 'block', marginLeft: 'auto', backgroundColor:'#c04b10', fontWeight:'bold', }}>
               Submit
             </Button>
           </Form.Item>
@@ -130,5 +145,14 @@ const DailyReflections = () => {
     </div>
   );
 };
-
+const labelStyle = {
+  display: 'inline-block',
+  padding: '6px 12px',
+  cursor: 'pointer',
+  backgroundColor: '#c04b10',
+  color: '#fff',
+  borderRadius: '4px',
+  textAlign: 'center',
+  
+};
 export default DailyReflections;

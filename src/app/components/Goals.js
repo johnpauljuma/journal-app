@@ -45,10 +45,10 @@ const Goals = () => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: 'fitContent' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: 'fitContent', marginBottom:'60px' }}>
       <Card
         title="Set a New Goal"
-        style={{ width: '100%', maxWidth: '600px', marginBottom: '10px' }}
+        style={{ width: '100%', maxWidth: '800px', marginBottom: '10px', marginTop:'20px' }}
       >
         <Form
           form={form}

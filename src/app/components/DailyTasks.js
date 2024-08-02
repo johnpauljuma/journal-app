@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { CloseOutlined } from '@ant-design/icons';
+import { CloseOutlined, PlusCircleFilled } from '@ant-design/icons';
 import { Button, Card, Form, Input, message, Modal } from 'antd';
 import moment from 'moment';
 import { v4 as uuidv4 } from 'uuid';
@@ -27,6 +27,7 @@ const TaskForm = ({
         <CloseOutlined onClick={() => handleRemove(task.id)} style={{ marginLeft: '10px' }} />
       </div>
     }
+    style={{marginBottom:'5px'}}
   >
     <Form.Item
       label="Task"
@@ -46,7 +47,7 @@ const TaskForm = ({
     <Form.Item>
       {editIndex === task.id ? (
         <div>
-          <Button type="primary" onClick={() => handleSave(task.id)} style={{ float: 'right' }}>
+          <Button type="primary" onClick={() => handleSave(task.id)} style={{ float: 'right', backgroundColor:'#c04b10' }}>
             Save
           </Button>
           <Button type="default" onClick={onCancelEdit} style={{ marginRight: 8 }}>
@@ -56,7 +57,7 @@ const TaskForm = ({
       ) : (
         <div>
           {!task.saved ? (
-            <Button type="primary" onClick={() => handleSave(task.id)} style={{ float: 'right' }}>
+            <Button type="primary" onClick={() => handleSave(task.id)} style={{ float: 'right', backgroundColor:'#c04b10' }}>
               Save
             </Button>
           ) : (
@@ -183,7 +184,7 @@ const DailyTasks = () => {
   return (
     <div>
       <div style={{ padding: '5px', justifyContent: 'center', display: 'flex' }}>
-        <h1>What would you Love to Accomplish Today</h1>
+        <h1 style={{margin:'0', color:'white', marginBottom:'10px'}}>What would you Love to Accomplish Today</h1>
       </div>
       <div style={{ padding: '5px', justifyContent: 'center', position: 'relative' }}>
         <center>
@@ -207,9 +208,9 @@ const DailyTasks = () => {
                 onCancelEdit={onCancelEdit}
               />
             ))}
-            <Button type="dashed" onClick={handleAddTask} block style={{ marginBottom: '40px' }}>
-              + Add Item
-            </Button>
+            <div style={{marginBottom:'60px'}}><Button type="dashed" onClick={handleAddTask} block style={{ marginBottom: '50px', fontWeight:'bold', backgroundColor:'#c04b10', width:'100px', margin:'0', color:'white' }}>
+              <PlusCircleFilled/> Add Item
+            </Button></div>
           </Form>
         </center>
       </div>

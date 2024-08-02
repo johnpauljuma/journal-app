@@ -7,27 +7,28 @@ const goalsFilePath = path.join(process.cwd(), 'data', 'goals.json');
 
 export async function GET() {
   try {
-    // Read the JSON file
     const data = await fs.promises.readFile(goalsFilePath, 'utf-8');
     const goals = JSON.parse(data);
 
-    // Count achieved and not achieved goals
-    const counts = goals.reduce((acc, goal) => {
-      if (goal.achieved === true) {
-        acc.achievedGoals += 1;
-      } else {
-        acc.notAchievedGoals += 1;
-      }
-      return acc;
-    }, { achievedGoals: 0, notAchievedGoals: 0 });
+    const counts = goals.reduce(
+      (acc, goal) => {
+        if (goal.achieved) {
+          acc.achievedGoals += 1;
+        } else {
+          acc.notAchievedGoals += 1;
+        }
+        return acc;
+      },
+      { achievedGoals: 0, notAchievedGoals: 0 }
+    );
 
-    // Return the counts as JSON response
-    return NextResponse.json(counts, { status: 200 });
+    return NextResponse.json({ goals, counts }, { status: 200 });
   } catch (error) {
     console.error('Failed to fetch data:', error);
     return NextResponse.json({ message: 'Failed to fetch data' }, { status: 500 });
   }
 }
+
 
 export async function POST(request) {
   try {

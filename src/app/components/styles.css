@@ -13,8 +13,11 @@
 
 
 .custom-calendar {
-    max-width: 80%; /* Adjust this value as needed */
-    margin: auto; /* Center the calendar */
+    max-width: 80%;
+    margin: auto; 
+    border-radius: 10px;
+    box-shadow: 5px;
+    margin-bottom: 20px;
   }
 
   /* Custom styles for the calendar */

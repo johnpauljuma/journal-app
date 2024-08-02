@@ -1,15 +1,16 @@
 [
   {
-    "title": "Goal 1 for 1",
+    "title": "Goal 1 for 2",
     "targetDate": "2024-07-31",
     "description": "jfhfhsdhfjhdsfjkh",
     "id": "ff48389c-5228-448d-bf19-0016e562b390",
     "achieved": true
   },
   {
-    "title": "Goal 2",
+    "title": "Goal 2 and 2",
     "targetDate": "2024-08-01",
     "description": "kjhfdshfjdhjshfjfhiuwe",
-    "id": "2bf0760a-c66a-4112-b4c5-eaf49b6bcaef"
+    "id": "2bf0760a-c66a-4112-b4c5-eaf49b6bcaef",
+    "achieved": true
   }
 ]

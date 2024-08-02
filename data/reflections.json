@@ -1,9 +1,9 @@
 [
   {
     "id": "475a4cb4-04d7-429d-ac0e-89ee849ead31",
-    "title": "My day",
+    "title": "When I Feel Rich",
     "date": "2024-07-30",
-    "description": "asdfghjkl;",
+    "description": "Ni mimi, na hata hyo pesa haiko....!!!",
     "imagePath": "/uploads/WhatsApp Image 2024-07-19 at 20.26.50.jpeg"
   },
   {
@@ -14,10 +14,24 @@
     "imagePath": "/uploads/image1.jpeg"
   },
   {
-    "id": "7950b451-887e-4dd5-b404-ad41721fe4e7",
-    "title": "ui diary",
-    "date": "2024-08-01",
-    "description": "gfjkl;opiuygfhvbniuyghjh",
-    "imagePath": "/uploads/Screenshot from 2024-08-01 11-33-07.png"
+    "id": "fd52c8fc-8723-4cbd-8eac-25b2165fde43",
+    "title": "Diary 1",
+    "date": "2024-07-29",
+    "description": "thats all",
+    "imagePath": "/uploads/image7.jpeg"
+  },
+  {
+    "id": "30460b7f-3025-4778-b5d3-60da9243ded1",
+    "title": "Diary 2",
+    "date": "2024-07-28",
+    "description": "Another one",
+    "imagePath": "/uploads/image5.jpeg"
+  },
+  {
+    "id": "a115ef74-41d3-45de-9ad1-4960ec083f2b",
+    "title": "Funny Day With Kids",
+    "date": "2024-07-30",
+    "description": "You may be edited and it will be fun",
+    "imagePath": "/uploads/image8.jpeg"
   }
 ]
